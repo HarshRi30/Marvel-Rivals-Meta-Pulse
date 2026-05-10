@@ -85,7 +85,7 @@ win_rate_rank
 marvel-rivals-meta-pulse/
 │
 ├── setup_db.py           # Run once — creates DB, tables, constraints
-├── update_pipeline.py    # Run anytime — scrapes new seasons, upserts to DB
+├── Web_scraping.py    # Run anytime — scrapes new seasons, upserts to DB
 ├── ml_analysis.py        # Clustering, regression, dev watch flags
 │
 ├── analysis.sql          # All 22 SQL analytical queries
@@ -115,7 +115,7 @@ playwright install chromium
 ```
 
 ### 2. Configure credentials
-Open `setup_db.py` and `update_pipeline.py`. Update the config block at the top of each file:
+Open `setup_db.py` and `Web_scraping.py`. Update the config block at the top of each file:
 ```python
 PG_USER     = "postgres"
 PG_PASSWORD = "your_password"
@@ -132,7 +132,7 @@ This creates the database, all 4 tables, and unique constraints required for ups
 
 ### 4. Scrape and load data
 ```bash
-python update_pipeline.py
+python Web_scraping.py
 ```
 Auto-detects all seasons on rivalsmeta.com, compares with what's in your DB, scrapes only what's new, and upserts directly into PostgreSQL. Safe to re-run anytime.
 
@@ -276,7 +276,7 @@ Peni Parker, Mantis, Thor, Black Panther, Mister Fantastic, Iron Fist, Ultron, H
 
 When a new season drops, run:
 ```bash
-python update_pipeline.py
+python Web_scraping.py
 ```
 
 The pipeline will:
@@ -293,7 +293,7 @@ python ml_analysis.py
 ```
 
 **Adding a new hero to the role lookup:**
-Open `update_pipeline.py` and add the hero to `ROLE_LOOKUP` (if Vanguard or Strategist) and `SLUG_TO_NAME` (for team-up parsing). Duelists are the default and require no entry.
+Open `Web_scraping.py` and add the hero to `ROLE_LOOKUP` (if Vanguard or Strategist) and `SLUG_TO_NAME` (for team-up parsing). Duelists are the default and require no entry.
 
 ---
 
